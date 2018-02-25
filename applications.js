@@ -17,23 +17,14 @@ var GrantTypes = function (available) {
     }
 };
 
-function copyTextClick(value) {
+	
+var isHashEnabled = function() {
 debugger;
-      var copyText = value;
-//      copyText.select();
-      copyText.execCommand("Copy");
+    var OAuthServerConfiguration = Packages.org.wso2.carbon.identity.oauth.config.OAuthServerConfiguration;
+    var isHashEnabled = OAuthServerConfiguration.getInstance().isHashEnabled();
 
-      return false;
-	}
-
-
-//var isHashEnabled = function() {
-//debugger;
-//		var OAuthServerConfiguration = Packages.org.wso2.carbon.identity.oauth.config.OAuthServerConfiguration;
-//        var isHashEnabled = OAuthServerConfiguration.getInstance().isHashEnabled();
-//
-//		return isHashEnabled;
-//	};
+    return isHashEnabled;
+};
 
 //(function() {
 //debugger;
@@ -312,7 +303,7 @@ GrantTypes.prototype.getMap = function(selected){
                     '<button class="btn btn-default copy-button" data-clipboard-text="'+this.app.Key+'" type="button" title="Copy">'+
                     '<i class="fw fw-copy"></i></button></div></div></div>', type: "info"});
                 } else {
-                    jagg.message({content: result.message, type: "info"});
+                    jagg.message({content: result.message, type: "error"});
                 }
             },this), "json");
             return false;
@@ -362,8 +353,7 @@ GrantTypes.prototype.getMap = function(selected){
                 if (!result.error) {
                     this.app.ConsumerSecret = result.data.key,
                     this.render();
-                    var isHashEnabled = true;
-//                    jagg.message({content:isHashEnabled });
+                    jagg.message({content:isHashEnabled });
                     if (isHashEnabled) {
                     debugger;
                     jagg.message({content: '<div style="margin-top:5px;background-color: #f4f4f4; border-left: 6px solid #cccccc;height:50px;width:90%;">' +
@@ -371,7 +361,7 @@ GrantTypes.prototype.getMap = function(selected){
                     '<div style="margin-top:20px;"><label>' + i18n.t("Consumer Secret") + '</label><div class="input-group"><input type="text" ' +
                      'readonly="readonly" size=100 class="form-control consumer_secret" title="Consumer Secret" id="ConsumerSecret" value="' +
                      this.app.ConsumerSecret+'"><div class="input-group-btn"><button class="btn btn-default copy-button" data-clipboard-text="' +
-                     this.app.ConsumerSecret+'" onclick="'+copyTextClick(this.app.ConsumerSecret)+'" type="button" title="Copy"><i class="fw fw-copy"></i></button></div></div></div>', type: "info"});
+                     this.app.ConsumerSecret+'" type="button" title="Copy"><i class="fw fw-copy"></i></button></div></div></div>', type: "info"});
                      }
                 } else {
                     jagg.message({content:result.data, type:"error"});
