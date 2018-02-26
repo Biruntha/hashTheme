@@ -17,31 +17,6 @@ var GrantTypes = function (available) {
     }
 };
 
-	
-var isHashEnabled = function() {
-debugger;
-    var OAuthServerConfiguration = Packages.org.wso2.carbon.identity.oauth.config.OAuthServerConfiguration;
-    var isHashEnabled = OAuthServerConfiguration.getInstance().isHashEnabled();
-
-    return isHashEnabled;
-};
-
-//(function() {
-//debugger;
-//var isHashEnabled = function() {
-//		var OAuthServerConfiguration = Packages.org.wso2.carbon.identity.oauth.config.OAuthServerConfiguration;
-//        var isHashEnabled = OAuthServerConfiguration.getInstance().isHashEnabled();
-//
-//		return isHashEnabled;
-//	};
-//
-//}) ();
-//function test() {
-//debugger;
-//
-//return true;
-//}
-
 GrantTypes.prototype.getMap = function(selected){
     var grants = [];
     if(selected !=undefined)
@@ -292,6 +267,7 @@ GrantTypes.prototype.getMap = function(selected){
                     this.app.ValidityTime = result.data.key.validityTime,
                     this.app.keyState = result.data.key.keyState,
                     this.render();
+                    if (isHashEnabled == 'true') {
                     jagg.message({content: '<div style="margin-top:5px;background-color: #f4f4f4; border-left: 6px solid #cccccc;height:50px;width:90%;">' +
                     '<p style="margin: 10px;padding-top:10px;display:block;"><strong>Note : <font color="red">'+i18n.t("Note")+'</font></strong></p></div>'+
                     '<div style="margin-top:20px;"><label>' + i18n.t("Consumer Secret") + '</label><div class="input-group">' +
@@ -302,6 +278,7 @@ GrantTypes.prototype.getMap = function(selected){
                     '<input type="text" readonly="readonly" size=100 class="form-control access_token" value="'+this.app.Key+'"><div class="input-group-btn">' +
                     '<button class="btn btn-default copy-button" data-clipboard-text="'+this.app.Key+'" type="button" title="Copy">'+
                     '<i class="fw fw-copy"></i></button></div></div></div>', type: "info"});
+                    }
                 } else {
                     jagg.message({content: result.message, type: "error"});
                 }
@@ -353,8 +330,8 @@ GrantTypes.prototype.getMap = function(selected){
                 if (!result.error) {
                     this.app.ConsumerSecret = result.data.key,
                     this.render();
-                    jagg.message({content:isHashEnabled });
-                    if (isHashEnabled) {
+//                    jagg.message({content:isHashEnabled });
+                    if (isHashEnabled == 'true') {
                     debugger;
                     jagg.message({content: '<div style="margin-top:5px;background-color: #f4f4f4; border-left: 6px solid #cccccc;height:50px;width:90%;">' +
                     '<p style="margin: 10px;padding-top:10px;display:block;"><strong>Note : <font color="red">'+i18n.t("Note2")+'</font></strong></p></div>'+
